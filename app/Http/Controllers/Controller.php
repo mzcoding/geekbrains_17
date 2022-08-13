@@ -22,7 +22,7 @@ class Controller extends BaseController
 				'title'       => $faker->jobTitle(),
 				'author'      => $faker->userName(),
 				'status'      => 'DRAFT',
-				'description' => $faker->text(100),
+				'description' =>  $faker->text(100),
 				'created_at'  => now('Europe/Moscow')
 			];
 		}
