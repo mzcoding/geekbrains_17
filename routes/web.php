@@ -39,3 +39,11 @@ Route::get('/news/{id}', [NewsController::class, 'show'])
 	->where('id', '\d+')
 	->name('news.show');
 
+Route::get('/collections', function() {
+    $names = ['Anna', 'Jhon', 'Kim', 'Mike', 'Drake', 'Lili'];
+    $collection = collect($names);
+
+   dd($collection->map(
+        fn($item) =>  strtoupper($item)
+        )->sort()->toJson());
+});

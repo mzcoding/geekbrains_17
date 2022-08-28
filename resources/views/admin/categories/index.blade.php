@@ -6,6 +6,7 @@
 
 <br><br>
     <div class="table-responsive">
+        @include('inc.message')
         <table class="table table-striped table-sm">
             <thead>
             <tr>

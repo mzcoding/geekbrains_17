@@ -1,13 +1,18 @@
 @extends('layouts.admin')
 @section('content')
     <h2>Список новостей</h2>
+    <a href="{{ route('admin.news.create') }}" style="float:right;" class="btn btn-primary">Добавить запись</a>
+
+    <br><br>
     <div class="table-responsive">
-        @include('inc.message', ['message' => 'Это сообщение об ошибки в новостях'])
+
+        @include('inc.message')
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Наименование</th>
+                <th scope="col">Категория</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Статус</th>
                 <th scope="col">Дата добавления</th>
@@ -15,14 +20,15 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($newsList as $key => $news)
+            @forelse($newsList as $news)
             <tr>
-                <td>{{ $key }}</td>
-                <td>{{ $news['title'] }}</td>
-                <td>{{ $news['author'] }}</td>
-                <td>DRAFT</td>
-                <td>{{ $news['created_at']->format('d-m-Y H:i') }}</td>
-                <td><a href="{{ route('admin.news.edit', ['news' => $key]) }}">Ред.</a> &nbsp; <a href="" style="color: red;">Уд.</a></td>
+                <td>{{ $news->id }}</td>
+                <td>{{ $news->title }}</td>
+                <td>{{ $news->category->title }}</td>
+                <td>{{ $news->author }}</td>
+                <td>{{ $news->status }}</td>
+                <td>{{ $news->created_at->format('d-m-Y H:i') }}</td>
+                <td><a href="{{ route('admin.news.edit', ['news' => $news]) }}">Ред.</a> &nbsp; <a href="" style="color: red;">Уд.</a></td>
             </tr>
             @empty
                 <tr>
@@ -31,5 +37,7 @@
             @endforelse
             </tbody>
         </table>
+
+        {{ $newsList->links() }}
     </div>
 @endsection
