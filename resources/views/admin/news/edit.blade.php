@@ -4,12 +4,7 @@
         <br>
         <h2>Редактировать новость</h2>
 
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                @include('inc.message', ['message' => $error])
-            @endforeach
-        @endif
-
+        @include('inc.message')
         <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}">
             @csrf
             @method('put')
@@ -25,10 +20,12 @@
             <div class="form-group">
                 <label for="title">Заголовок</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ $news->title }}">
+                @error('title') <span style="color:red";>{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="author">Автор</label>
                 <input type="text" class="form-control" name="author" id="author" value="{{ $news->author }}">
+                @error('author') <span style="color:red";>{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="status">Статус</label>

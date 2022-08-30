@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Categories\CreateRequest;
+use App\Http\Requests\Categories\EditRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\RedirectResponse;
@@ -37,17 +39,13 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param CreateRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-		$request->validate([
-			'title' => ['required', 'string', 'min:5', 'max:255']
-		]);
-
         $category = new Category(
-            $request->only(['title', 'description'])
+            $request->validated()
         );
 
         if($category->save()) {
@@ -85,14 +83,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditRequest $request
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(EditRequest $request, Category $category): RedirectResponse
     {
-        $category->title = $request->input('title');
-        $category->description = $request->input('description');
+        $category = $category->fill($request->validated());
 
         if($category->save()) {
             return redirect()->route('admin.categories.index')
@@ -109,7 +106,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
     }

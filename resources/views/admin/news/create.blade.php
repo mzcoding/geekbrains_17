@@ -4,12 +4,7 @@
         <br>
         <h2>Добавить новость</h2>
 
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                @include('inc.message', ['message' => $error])
-            @endforeach
-        @endif
-
+        @include('inc.message')
         <form method="post" action="{{ route('admin.news.store') }}">
             @csrf
             <div class="form-group">
@@ -17,7 +12,7 @@
                 <select class="form-control" name="category_id" id="category_id">
                     <option value="0">Выбрать</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}" @if(old('category_id') === $category->id) selected @endif>{{ $category->title }}</option>
+                        <option value="{{ $category->id }}" @if((int)old('category_id') === $category->id) selected @endif>{{ $category->title }}</option>
                     @endforeach
                 </select>
             </div>
