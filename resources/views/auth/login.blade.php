@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Авторизация') }}</div>
 
                 <div class="card-body">
+                    <a href="{{ route('social.auth.redirect', ['driver' => 'vkontakte']) }}"><strong>Вход через ВК</strong></a>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
