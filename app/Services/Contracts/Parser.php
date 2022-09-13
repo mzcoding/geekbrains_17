@@ -13,7 +13,7 @@ interface Parser
     public function setLink(string $link): self;
 
     /**
-     * @return array
+     * @return void
      */
-    public function getParseData(): array;
+    public function saveParseData(): void;
 }
